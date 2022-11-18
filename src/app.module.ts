@@ -1,11 +1,13 @@
 import { Module } from '@nestjs/common';
-
+import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import * as joi from 'joi';
 import { AuthController } from './modules/auth/controllers/auth.controller';
 import { JwtAuthModule } from './modules/auth/services/authorization/jwt/jwt-auth.DI.module';
+import { AuthRepoModule } from './modules/auth/repos/repo.DI.module';
 @Module({
   imports: [
+    MongooseModule.forRoot('mongodb://127.0.0.1:27017/ddd'),
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: joi.object({
@@ -17,6 +19,7 @@ import { JwtAuthModule } from './modules/auth/services/authorization/jwt/jwt-aut
       envFilePath: './.env',
     }),
     JwtAuthModule,
+    AuthRepoModule
   ],
   controllers: [AuthController],
   providers: [],

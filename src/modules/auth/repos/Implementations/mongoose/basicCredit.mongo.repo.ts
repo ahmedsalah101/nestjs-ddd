@@ -1,7 +1,5 @@
-
-import { Credentials } from '../../domain';
-import { BasicCreditRepo } from '../baiscCreditRepo';
-import { UserRepo } from '../userRepo';
+import { Credentials } from 'src/modules/auth/domain';
+import { BasicCreditRepo } from '../../baiscCreditRepo';
 
 export class MongoBasicCreditRepo implements BasicCreditRepo {
   getCreditByEmail(email: string): Promise<Credentials.BasicCredentials> {
