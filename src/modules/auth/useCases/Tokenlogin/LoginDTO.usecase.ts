@@ -1,7 +1,7 @@
 
 import { UseCase } from 'src/common/core/UseCase';
 import { BasicCreditRepo } from '../../repos/baiscCreditRepo';
-import { JwtAuthService } from '../../services/auth/jwt/jwtAuth.service';
+import { JwtAuthService } from '../../services/authorization/jwt/jwtAuth.service';
 import { CryptoServices } from '../../services/crypto/crypto.service';
 import { LoginReqDTO, LoginResDTO } from './Login.dto';
 import { TokenLoginUseCase } from './Login.usecase';
