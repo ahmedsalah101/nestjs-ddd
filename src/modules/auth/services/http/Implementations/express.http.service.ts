@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Response } from 'express';
-import { Cookie } from 'src/auth/domain';
+import { Cookie } from 'src/modules/auth/domain';
+
 import { HttpService } from '../http.service';
 
 @Injectable()

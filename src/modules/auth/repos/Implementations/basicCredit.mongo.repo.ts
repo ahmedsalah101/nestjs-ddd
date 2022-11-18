@@ -1,4 +1,5 @@
-import { Credentials } from 'src/auth/domain';
+
+import { Credentials } from '../../domain';
 import { BasicCreditRepo } from '../baiscCreditRepo';
 import { UserRepo } from '../userRepo';
 

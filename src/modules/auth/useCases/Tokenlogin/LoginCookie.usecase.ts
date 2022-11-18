@@ -1,9 +1,9 @@
-import { AuthCookie, Cookie } from 'src/auth/domain';
-import { BasicCreditRepo } from 'src/auth/repos/baiscCreditRepo';
-import { UserRepo } from 'src/auth/repos/userRepo';
-import { JwtAuthService } from 'src/auth/services/auth/jwt/jwtAuth.service';
-import { CryptoServices } from 'src/auth/services/crypto/crypto.service';
+
 import { UseCase } from 'src/common/core/UseCase';
+import { AuthCookie } from '../../domain';
+import { BasicCreditRepo } from '../../repos/baiscCreditRepo';
+import { JwtAuthService } from '../../services/auth/jwt/jwtAuth.service';
+import { CryptoServices } from '../../services/crypto/crypto.service';
 import { LoginReqDTO } from './Login.dto';
 import { TokenLoginUseCase } from './Login.usecase';
 

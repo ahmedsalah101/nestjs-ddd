@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { JwtPayload } from 'src/auth/domain/jwt.payload';
+
 import { JwtService } from '@nestjs/jwt';
+import { AuthCookie, JwtPayload, TokenOptions, Tokens } from 'src/modules/auth/domain';
 import { JwtAuthService } from '../jwtAuth.service';
 import { JwtOptionsProvider } from './config/jwt-options.provider';
-import { AuthCookie, TokenOptions, Tokens } from 'src/auth/domain';
+
 import {
   ACCESS_COOKIE_NAME,
   REFRESH_COOKIE_NAME,

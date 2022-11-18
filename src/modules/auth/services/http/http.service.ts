@@ -1,4 +1,4 @@
-import { Cookie } from 'src/auth/domain';
+import { Cookie } from "../../domain";
 
 export abstract class HttpService {
   abstract setCookieOfResponse(cookie: Cookie, response): void;

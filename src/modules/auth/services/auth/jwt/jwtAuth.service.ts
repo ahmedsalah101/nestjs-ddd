@@ -1,7 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { AuthCookie, Tokens } from 'src/auth/domain';
-import { JwtPayload } from 'src/auth/domain/jwt.payload';
-
+import { AuthCookie, JwtPayload, Tokens } from 'src/modules/auth/domain';
 
 @Injectable()
 export abstract class JwtAuthService {

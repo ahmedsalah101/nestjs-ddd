@@ -1,4 +1,5 @@
-import { User } from 'src/auth/domain';
+
+import { User } from '../../domain';
 import { UserRepo } from '../userRepo';
 
 export class MongoUserRepo implements UserRepo {

@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
-import { AuthController } from './auth/controllers/auth.controller';
-import { JwtAuthModule } from './auth/services/auth/jwt/jwt-auth.DI.module';
+
 import { ConfigModule } from '@nestjs/config';
 import * as joi from 'joi';
+import { AuthController } from './modules/auth/controllers/auth.controller';
+import { JwtAuthModule } from './modules/auth/services/auth/jwt/jwt-auth.DI.module';
 @Module({
   imports: [
     ConfigModule.forRoot({

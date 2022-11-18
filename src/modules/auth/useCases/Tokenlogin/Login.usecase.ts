@@ -1,6 +1,6 @@
-import { Credentials } from 'src/auth/domain';
-import { BasicCreditRepo } from 'src/auth/repos/baiscCreditRepo';
-import { CryptoServices } from 'src/auth/services/crypto/crypto.service';
+import { Credentials } from '../../domain';
+import { BasicCreditRepo } from '../../repos/baiscCreditRepo';
+import { CryptoServices } from '../../services/crypto/crypto.service';
 import { LoginReqDTO } from './Login.dto';
 
 export class TokenLoginUseCase {
