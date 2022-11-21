@@ -1,10 +1,37 @@
-import { Module } from '@nestjs/common';
+import { Controller, Get, Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import * as joi from 'joi';
-import { AuthController } from './modules/auth/controllers/auth.controller';
-import { JwtAuthModule } from './modules/auth/services/authorization/jwt/jwt-auth.DI.module';
-import { AuthRepoModule } from './modules/auth/repos/repo.DI.module';
+import { AuthModule } from './modules/auth';
+import * as argon from 'argon2';
+
+@Controller()
+export class TestController {
+  @Get()
+  async test() {
+    const formatMemoryUsage = (data) =>
+      `${Math.round((data / 1024 / 1024) * 100) / 100} MB`;
+
+    const memoryData = process.memoryUsage();
+
+    const memoryUsage = {
+      rss: `${formatMemoryUsage(
+        memoryData.rss,
+      )} -> Resident Set Size - total memory allocated for the process execution`,
+      heapTotal: `${formatMemoryUsage(
+        memoryData.heapTotal,
+      )} -> total size of the allocated heap`,
+      heapUsed: `${formatMemoryUsage(
+        memoryData.heapUsed,
+      )} -> actual memory used during the execution`,
+      external: `${formatMemoryUsage(
+        memoryData.external,
+      )} -> V8 external memory`,
+    };
+
+    console.log(memoryUsage);
+  }
+}
 @Module({
   imports: [
     MongooseModule.forRoot('mongodb://127.0.0.1:27017/ddd'),
@@ -18,10 +45,9 @@ import { AuthRepoModule } from './modules/auth/repos/repo.DI.module';
       }),
       envFilePath: './.env',
     }),
-    JwtAuthModule,
-    AuthRepoModule
+    AuthModule,
   ],
-  controllers: [AuthController],
+  controllers: [TestController],
   providers: [],
 })
 export class AppModule {}

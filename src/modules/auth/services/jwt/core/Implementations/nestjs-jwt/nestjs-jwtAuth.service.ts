@@ -1,8 +1,14 @@
 import { Injectable } from '@nestjs/common';
 
 import { JwtService } from '@nestjs/jwt';
-import { AuthCookie, JwtPayload, TokenOptions, Tokens } from 'src/modules/auth/domain';
-import { JwtAuthService } from '../jwtAuth.service';
+import {
+  AuthCookie,
+  JwtPayload,
+  TokenOptions,
+  Tokens,
+} from 'src/modules/auth/domain';
+
+import { JwtAuthService } from '../../jwtAuth.service';
 import { JwtOptionsProvider } from './config/jwt-options.provider';
 
 import {
@@ -14,7 +20,11 @@ export class NestJwtAuthService implements JwtAuthService {
   constructor(
     private readonly jwtService: JwtService,
     private readonly jwtOptionsProvider: JwtOptionsProvider,
+    private readonly jwtAuthRepo,
   ) {}
+  authenticateUser(): Promise<void> {
+    throw new Error('Method not implemented.');
+  }
   genAccessToken<T extends JwtPayload>(
     tokenPayload: T,
     tokenOptions?: TokenOptions,
@@ -39,8 +49,8 @@ export class NestJwtAuthService implements JwtAuthService {
     tokenPayload: T,
     tokenOptions?: TokenOptions,
   ): Tokens {
-    const accessToken = this.genAccessToken<T>(tokenPayload,tokenOptions);
-    const refreshToken = this.genRefreshToken<T>(tokenPayload,tokenOptions);
+    const accessToken = this.genAccessToken<T>(tokenPayload, tokenOptions);
+    const refreshToken = this.genRefreshToken<T>(tokenPayload, tokenOptions);
     return { accessToken, refreshToken };
   }
 
@@ -80,11 +90,13 @@ export class NestJwtAuthService implements JwtAuthService {
     tokenPayload: T,
     tokenOptions?: TokenOptions,
   ): AuthCookie[] {
-    const { accessToken, refreshToken } = this.genTokens(tokenPayload,tokenOptions);
+    const { accessToken, refreshToken } = this.genTokens(
+      tokenPayload,
+      tokenOptions,
+    );
     return [
       this.genAccessTokenCookie(accessToken),
       this.genRefreshTokenCookie(refreshToken),
     ];
   }
-
 }

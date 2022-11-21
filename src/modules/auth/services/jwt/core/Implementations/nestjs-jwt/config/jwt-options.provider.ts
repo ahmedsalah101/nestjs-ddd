@@ -1,6 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { JWT_ACCESS_TOKEN_EXP_TIME, JWT_ACCESS_TOKEN_SECRET, JWT_REFRESH_TOKEN_EXP_TIME, JWT_REFRESH_TOKEN_SECRET } from '../constants/jwt.constants';
+import {
+  JWT_ACCESS_TOKEN_EXP_TIME,
+  JWT_ACCESS_TOKEN_SECRET,
+  JWT_REFRESH_TOKEN_EXP_TIME,
+  JWT_REFRESH_TOKEN_SECRET,
+} from '../constants/jwt.constants';
 
 @Injectable()
 export class JwtOptionsProvider {
@@ -11,7 +16,9 @@ export class JwtOptionsProvider {
   accessTokenExpTime = this.configService.get<number>(
     JWT_ACCESS_TOKEN_EXP_TIME,
   );
-  refreshTokenExpTime = this.configService.get<number>(JWT_REFRESH_TOKEN_EXP_TIME);
+  refreshTokenExpTime = this.configService.get<number>(
+    JWT_REFRESH_TOKEN_EXP_TIME,
+  );
 
   accessTokenOptions = {
     secret: this.accessTokenSecret,
