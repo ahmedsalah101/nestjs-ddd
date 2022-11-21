@@ -16,6 +16,12 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@common/core": ["./src/common/core"],
+      "@common/services": ["./src/common/services"],
+      "@auth/crypto": ["./src/modules/auth/services/crypto"],
+      "@auth/repo": ["./src/modules/auth/repos"]
+    }
   }
 }

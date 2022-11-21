@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { HttpService } from './http.service';
+import { HttpService } from './http.abs.service';
 import { ExpressHttpService } from './Implementations/express.http.service';
 
 @Module({

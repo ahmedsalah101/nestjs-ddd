@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
-import { UseCase } from 'src/common/core/UseCase';
-import { CoreCredentialsRepo } from 'src/modules/auth/repos/core-credentials.repo';
-import { CryptoServices } from 'src/modules/auth/services/crypto/crypto.service';
+import { CryptoServices } from '@auth/crypto';
+import { CoreCredentialsRepo } from '@auth/repo';
+import { UseCase } from '@common/core';
 import { LoginDTO } from './login.dto';
+
+import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class LoginUseCase implements UseCase<LoginDTO, void> {

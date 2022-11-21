@@ -8,7 +8,7 @@ import {
   Tokens,
 } from 'src/modules/auth/domain';
 
-import { JwtAuthService } from '../../jwtAuth.service';
+import { JwtAuthService } from '../../jwt-auth.abs.service';
 import { JwtOptionsProvider } from './config/jwt-options.provider';
 
 import {

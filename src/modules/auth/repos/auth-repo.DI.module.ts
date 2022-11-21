@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { CoreCredentialsRepo } from './core-credentials.repo';
+import { CoreCredentialsRepo } from './core-credentials.abs.repo';
 import {
   MongoCoreCredentials,
   MongoCoreCredentialsSchema,

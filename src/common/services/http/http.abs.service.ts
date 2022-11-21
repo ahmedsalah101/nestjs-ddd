@@ -1,4 +1,4 @@
-import { Cookie } from "../../domain";
+import { Cookie } from '@common/core';
 
 export abstract class HttpService {
   abstract setCookieOfResponse(cookie: Cookie, response): void;

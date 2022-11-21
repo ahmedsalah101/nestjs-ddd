@@ -1,8 +1,7 @@
+import { Cookie } from '@common/core';
 import { Injectable } from '@nestjs/common';
 import { Response } from 'express';
-import { Cookie } from 'src/modules/auth/domain';
-
-import { HttpService } from '../http.service';
+import { HttpService } from '../http.abs.service';
 
 @Injectable()
 export class ExpressHttpService implements HttpService {
