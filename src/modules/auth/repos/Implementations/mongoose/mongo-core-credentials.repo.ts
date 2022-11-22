@@ -1,4 +1,5 @@
-import { InjectModel } from '@nestjs/mongoose';
+import { EventBus } from '@nestjs/cqrs';
+import { InjectModel, SchemaFactory } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CoreCredentialsRepo } from '../../core-credentials.abs.repo';
 import {
@@ -6,11 +7,14 @@ import {
   MongoCoreCredentialsDocument,
 } from './models/mongoCoreCredentials';
 
-export class MongoCoreCredentialsRepo implements CoreCredentialsRepo {
+export class MongoCoreCredentialsRepo {
   constructor(
     @InjectModel(MongoCoreCredentials.name)
     private readonly basicCreditModel: Model<MongoCoreCredentialsDocument>,
-  ) {}
+    private readonly eventBus: EventBus,
+  ) {
+
+  }
 
   getCreditByEmail(email: string): Promise<MongoCoreCredentials> {
     console.log('HEEERE');
@@ -18,8 +22,8 @@ export class MongoCoreCredentialsRepo implements CoreCredentialsRepo {
     throw new Error('Method not implemented.');
   }
 
-  async save(credentials: MongoCoreCredentials): Promise<void> {
+  async save(credentials: MongoCoreCredentialsDocument): Promise<void> {
     const cred = new this.basicCreditModel(credentials);
-    cred.save();
+    await cred.save();
   }
 }

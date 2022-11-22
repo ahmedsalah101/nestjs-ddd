@@ -3,7 +3,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import * as joi from 'joi';
 import { AuthModule } from './modules/auth';
-import * as argon from 'argon2';
+import { APP_FILTER } from '@nestjs/core';
+
+import { HttpExceptionFilter } from '@common/services';
 
 @Controller()
 export class TestController {
@@ -48,6 +50,11 @@ export class TestController {
     AuthModule,
   ],
   controllers: [TestController],
-  providers: [],
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: HttpExceptionFilter,
+    },
+  ],
 })
 export class AppModule {}

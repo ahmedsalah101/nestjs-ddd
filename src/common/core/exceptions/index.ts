@@ -1,1 +1,2 @@
-export { Exception } from './Exception';
+export * from './Exception';
+export * from '../error/domainError';

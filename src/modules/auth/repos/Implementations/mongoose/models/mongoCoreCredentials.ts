@@ -11,6 +11,8 @@ export class MongoCoreCredentials implements CoreCredentials {
   @Prop()
   hashedPassword: string;
 }
-
 export const MongoCoreCredentialsSchema =
   SchemaFactory.createForClass(MongoCoreCredentials);
+MongoCoreCredentialsSchema.post('save', (doc) => {
+  console.log(doc);
+});
