@@ -5,5 +5,5 @@ export * from './Result'
 export * from './enums'
 export * from './Either'
 export * from './error'
-
+export * from './Mapper'
 

@@ -3,12 +3,22 @@ import { DomainError } from './domainError';
 
 export namespace AppError {
   export class UnexpectedError extends Result<DomainError> {
-    private constructor(err: any, message?: string) {
-      super(false, err, { message: message || 'An unexpected error occured' });
+    private constructor(message?: string) {
+      super(false, { message: message || 'An unexpected error occured' });
     }
 
-    public static create(err: any, message?: string): UnexpectedError {
-      return new UnexpectedError(err, message);
+    public static create(message?: string): UnexpectedError {
+      return new UnexpectedError(message);
+    }
+  }
+
+  export class ValidationError extends Result<DomainError> {
+    private constructor(message?: string) {
+      super(false, { message: message || 'Invalid Value' });
+    }
+
+    public static create(message?: string): ValidationError {
+      return new ValidationError(message);
     }
   }
 }

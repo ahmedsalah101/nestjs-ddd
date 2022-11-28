@@ -23,13 +23,13 @@ export class HttpExceptionFilter implements ExceptionFilter {
     if (exception instanceof Exception) {
       const status = exception.code;
       res.status(status).json({
-        message: exception.error,
+        message: exception.errorValue,
         time: new Date().toISOString(),
       });
       return;
     }
     res.status(500).json({
-      err: exception.error,
+      err: exception.errorValue,
     });
   }
 }

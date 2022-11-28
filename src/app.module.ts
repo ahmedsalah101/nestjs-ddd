@@ -30,7 +30,7 @@ export class TestController {
         memoryData.external,
       )} -> V8 external memory`,
     };
-
+  
     console.log(memoryUsage);
   }
 }

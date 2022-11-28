@@ -1,4 +1,4 @@
-import { CoreCredentials } from '../domain';
+import { CoreCredentials } from '../domain/core.credentials';
 
 export abstract class CoreCredentialsRepo {
   abstract getCreditByEmail(email: string): Promise<CoreCredentials>;

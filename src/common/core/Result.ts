@@ -3,23 +3,23 @@ import { DomainError } from './error';
 export class Result<T> {
   public isSuccess: boolean;
   public isFailure: boolean;
-  public error: T | string;
+  public errorValue: T ;
   private _value: T;
 
-  protected constructor(isSuccess: boolean, error?: T | string, value?: T) {
-    if (isSuccess && error) {
+  protected constructor(isSuccess: boolean, errorValue?: T , value?: T) {
+    if (isSuccess && errorValue) {
       throw new Error(
         'InvalidOperation: A failing result must contian an error mesg',
       );
     }
     this.isSuccess = isSuccess;
     this.isFailure = !isSuccess;
-    this.error = error;
+    this.errorValue = errorValue;
     this._value = value;
     Object.freeze(this);
   }
 
-  public getValue(): T {
+  public get successValue(): T {
     if (this.isFailure) {
       throw new Error("can't retireve value from failed operation");
     }
@@ -30,8 +30,8 @@ export class Result<T> {
     return new Result<K>(true, null, value);
   }
 
-  public static fail<F>(error: any): Result<F> {
-    return new Result<F>(false, error);
+  public static fail<F>(errorValue: any): Result<F> {
+    return new Result<F>(false, errorValue);
   }
 
   public static combine(results: Result<any>[]): Result<any> {

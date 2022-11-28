@@ -12,7 +12,7 @@ export class Exception extends Error {
   constructor(exceptionPayload: ExceptionPayload) {
     super();
     this.code = exceptionPayload.code;
-    this.message = exceptionPayload.error.getValue().message;
+    this.message = exceptionPayload.error.errorValue.message;
     Error.captureStackTrace(this, this.constructor);
   }
 }
