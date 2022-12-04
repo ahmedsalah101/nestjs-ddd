@@ -25,9 +25,11 @@ export class UserProfile extends Entity<UserProfileProps> {
     id?: EntityID,
   ): EitherFailOrVal<InvalidUserProfileError, UserProfile> {
     const userProfileSchema = z.object({
-      firstName: z.string().max(10, { message: 'must be less than 10 chars' }),
+      firstName: z
+        .string()
+        .max(10, { message: 'must be less than 10 chars' })
+        .min(5),
     });
-
     const parseResult = userProfileSchema.safeParse(userProfileProps);
     if (parseResult.success === false)
       return resFail(

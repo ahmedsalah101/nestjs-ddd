@@ -1,6 +1,4 @@
 import { EitherFailOrVal, resFail, resValue } from '@common/core';
-import { Result } from 'src/common/core/Result';
-import { staticImplements } from 'src/common/core/utils';
 import { ValueObject } from 'src/common/domain/ValueObject';
 import { z } from 'zod';
 import { RegisterError } from '../useCases/Register/register.error';
