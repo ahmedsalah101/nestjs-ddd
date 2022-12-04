@@ -1,5 +1,8 @@
-import { EntityID } from 'src/common/domain/EntityID';
+import { AggregateRoot } from 'src/common/domain/AggregateRoot';
+import { UserProfile } from './profile';
 
-export interface Credentials {
-  userId: EntityID;
+export interface CredentialsProps {
+  profile: UserProfile;
 }
+
+export class Credentials<T extends CredentialsProps> extends AggregateRoot<T> {}

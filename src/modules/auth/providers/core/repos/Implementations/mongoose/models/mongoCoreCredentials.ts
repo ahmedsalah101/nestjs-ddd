@@ -7,7 +7,7 @@ export class MongoCoreCredentials {
   @Prop()
   email: string;
   @Prop()
-  userId: string;
+  profileId: string;
   @Prop()
   hashedPassword: string;
 }

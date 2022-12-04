@@ -1,4 +1,4 @@
-import { DomainError, Exception, Result } from '@common/core';
+import { IDomainError, Exception, Result } from '@common/core';
 import {
   ArgumentsHost,
   Catch,
@@ -9,7 +9,7 @@ import { Response } from 'express';
 
 @Catch()
 export class HttpExceptionFilter implements ExceptionFilter {
-  catch(exception: Result<DomainError>, host: ArgumentsHost) {
+  catch(exception: Result<IDomainError>, host: ArgumentsHost) {
     const res: Response = host.switchToHttp().getResponse();
     if (exception instanceof HttpException) {
       console.log('here');

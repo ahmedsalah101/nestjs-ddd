@@ -1,4 +1,5 @@
 import { shallowEqual } from 'shallow-equal-object';
+import { IDomainError, EitherFailOrVal } from '../core/error';
 import { Result } from '../core/Result';
 
 export abstract class ValueObject<ValType> {
@@ -15,11 +16,11 @@ export abstract class ValueObject<ValType> {
   abstract toString(): string;
 }
 
-/**
- *  @param V : raw Value Type
- *  @param O : ValueObject Class
- */
-export interface ValueObjectFactory<V, O> {
-  parse(id: V): Result<O>;
-  generate?(): O;
-}
+// /**
+//  *  @param V : raw Value Type
+//  *  @param O : ValueObject Class
+//  */
+// export interface ValueObjectFactory<V, O, E extends Result<IDomainError>> {
+//   parse(id: V): EitherFailOrVal<E, Result<O>>;
+//   generate?(): O;
+// }

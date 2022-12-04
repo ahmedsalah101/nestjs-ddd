@@ -1,18 +1,19 @@
 import { DomainError } from '../error';
-import { Result } from '../Result';
 
 export interface ExceptionPayload {
   code: number;
-  error: Result<DomainError>;
+  error: DomainError;
 }
 export class Exception extends Error {
   public readonly code: number;
   public readonly message: string;
+  public readonly errorType: string;
 
   constructor(exceptionPayload: ExceptionPayload) {
     super();
     this.code = exceptionPayload.code;
-    this.message = exceptionPayload.error.errorValue.message;
+    this.errorType = exceptionPayload.error.constructor.name;
+    this.message = exceptionPayload.error.errorPayload.errMessage;
     Error.captureStackTrace(this, this.constructor);
   }
 }

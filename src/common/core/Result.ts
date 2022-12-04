@@ -1,12 +1,12 @@
-import { DomainError } from './error';
+import { IDomainError } from './error';
 
 export class Result<T> {
   public isSuccess: boolean;
   public isFailure: boolean;
-  public errorValue: T ;
+  public errorValue: T;
   private _value: T;
 
-  protected constructor(isSuccess: boolean, errorValue?: T , value?: T) {
+  protected constructor(isSuccess: boolean, errorValue?: T, value?: T) {
     if (isSuccess && errorValue) {
       throw new Error(
         'InvalidOperation: A failing result must contian an error mesg',
@@ -21,7 +21,7 @@ export class Result<T> {
 
   public get successValue(): T {
     if (this.isFailure) {
-      throw new Error("can't retireve value from failed operation");
+      return this.errorValue as T;
     }
     return this._value;
   }
@@ -34,12 +34,12 @@ export class Result<T> {
     return new Result<F>(false, errorValue);
   }
 
-  public static combine(results: Result<any>[]): Result<any> {
-    for (let result of results) {
-      if (result.isFailure) return result;
-    }
-    return Result.ok<any>();
-  }
+  // public static combine(results: Result<any>[]): Result<any> {
+  //   for (let result of results) {
+  //     if (result.isFailure) return result;
+  //   }
+  //   return Result.ok<any>();
+  // }
 }
 
 // let dw : Result<DomainError>;

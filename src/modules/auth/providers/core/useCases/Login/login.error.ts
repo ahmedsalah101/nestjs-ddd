@@ -1,14 +1,10 @@
-import { DomainError, Result } from '@common/core';
+import { DomainError } from '@common/core';
 
 export namespace LoginError {
-  export class CredentialsTakenError extends Result<DomainError> {
-    private constructor(credId: string) {
-      super(false, {
-        message: 'Credentials Already Taken.',
-      });
-    }
-    public static create(credId: string): CredentialsTakenError {
-      return new CredentialsTakenError(credId);
+  export class InvalidCredentialsError implements DomainError {
+    errMessage: string;
+    constructor(errMessage: string) {
+      this.errMessage = errMessage || `Invalid Credentials`;
     }
   }
 }

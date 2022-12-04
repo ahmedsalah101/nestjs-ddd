@@ -1,9 +1,11 @@
+import { EitherFailOrVal, resFail, resValue } from '@common/core';
 import { Result } from 'src/common/core/Result';
 import { staticImplements } from 'src/common/core/utils';
-import { ValueObject, ValueObjectFactory } from 'src/common/domain/ValueObject';
+import { ValueObject } from 'src/common/domain/ValueObject';
 import { z } from 'zod';
+import { RegisterError } from '../useCases/Register/register.error';
 
-@staticImplements<ValueObjectFactory<string, Password>>()
+//@staticImplements<ValueObjectFactory<string, Password>>()
 export class Password extends ValueObject<string> {
   private constructor(id: string) {
     super(id);
@@ -13,12 +15,16 @@ export class Password extends ValueObject<string> {
     return String(this.value);
   }
 
-  static parse(passVal: string): Result<Password> {
+  static parse(
+    passVal: string,
+  ): EitherFailOrVal<RegisterError.InvalidPasswordError, Password> {
     const passSchema = z.string().min(8);
     const parseResult = passSchema.safeParse(passVal);
     if (parseResult.success === true) {
-      return Result.ok<Password>(new Password(parseResult.data));
+      return resValue(new Password(parseResult.data));
     }
-    return Result.fail<Password>(parseResult.error.flatten().formErrors);
+    return resFail(
+      new RegisterError.InvalidPasswordError(parseResult.error.message),
+    );
   }
 }

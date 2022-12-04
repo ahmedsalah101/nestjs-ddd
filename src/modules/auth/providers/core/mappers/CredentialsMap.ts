@@ -1,33 +1,20 @@
 import { Mapper, Result } from '@common/core';
 import { staticImplements } from 'src/common/core/utils';
 import { EntityID } from 'src/common/domain/EntityID';
-import { Email } from 'src/modules/auth/domain/Email';
+import { Email } from 'src/modules/auth/providers/core/domain/Email';
 import { CoreCredentials } from '../domain/core.credentials';
 
 //@staticImplements<Mapper<CoreCredentials>>()
 export class CoreCredMap {
   static toDomain(raw: any): Result<CoreCredentials> {
-    const emailParseResult = Email.parse(raw.user_email);
-    const userIdParseResult = EntityID.parse(raw.user_id);
-    const credId = raw.credId;
-    const password = raw.password;
-
-    if (userIdParseResult.isFailure)
-      return Result.fail<CoreCredentials>(userIdParseResult.errorValue);
-    if (emailParseResult.isFailure)
-      return Result.fail<CoreCredentials>(emailParseResult.errorValue);
-    // return CoreCredentials.create(
-    //   {
-    //     email: emailParseResult.successValue.toString(),
-    //     hashedPassword: password,
-    //     userId: userIdParseResult.successValue.toString(),
-    //   },
-    //   user_id,
-    // );
+    return;
   }
 
-  static toPersistence(t: CoreCredentials) {
+  static toPersistence(credentials: CoreCredentials) {
     return {
+      email: credentials.email.toString(),
+      profileId: credentials.profileId.toString(),
+      hashedPassword: credentials.hashedPassowrd.toString(),
       // user_email: t.email,
     };
   }
