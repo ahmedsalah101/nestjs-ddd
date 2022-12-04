@@ -5,10 +5,8 @@ export type MongoProfileDocument = MongoProfile & Document;
 @Schema()
 export class MongoProfile {
   @Prop()
-  email: string;
-  @Prop()
   profileId: string;
   @Prop()
-  hashedPassword: string;
+  firstName: string;
 }
 export const MongoProfileSchema = SchemaFactory.createForClass(MongoProfile);

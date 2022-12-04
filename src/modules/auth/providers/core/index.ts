@@ -1,2 +1,2 @@
-export * from './useCases/Login/login.usecase'
-export * from './useCases/Login/login.controller'
+export * from './useCases/Register/register.controller';
+export * from './useCases/Register/register.usecase';

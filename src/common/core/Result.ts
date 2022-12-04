@@ -1,5 +1,3 @@
-import { IDomainError } from './error';
-
 export class Result<T> {
   public isSuccess: boolean;
   public isFailure: boolean;

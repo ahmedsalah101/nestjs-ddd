@@ -5,6 +5,8 @@ export type MongoCoreCredentialsDocument = MongoCoreCredentials & Document;
 @Schema()
 export class MongoCoreCredentials {
   @Prop()
+  credId: string;
+  @Prop()
   email: string;
   @Prop()
   profileId: string;

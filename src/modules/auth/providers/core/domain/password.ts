@@ -18,13 +18,15 @@ export class Password extends ValueObject<string> {
   static parse(
     passVal: string,
   ): EitherFailOrVal<RegisterError.InvalidPasswordError, Password> {
-    const passSchema = z.string().min(8);
+    const passSchema = z.string().min(8, { message: 'Required password' });
     const parseResult = passSchema.safeParse(passVal);
     if (parseResult.success === true) {
       return resValue(new Password(parseResult.data));
     }
     return resFail(
-      new RegisterError.InvalidPasswordError(parseResult.error.message),
+      new RegisterError.InvalidPasswordError({
+        errMessage: parseResult.error.message,
+      }),
     );
   }
 }

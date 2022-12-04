@@ -1,6 +1,4 @@
 import { shallowEqual } from 'shallow-equal-object';
-import { IDomainError, EitherFailOrVal } from '../core/error';
-import { Result } from '../core/Result';
 
 export abstract class ValueObject<ValType> {
   protected readonly value: ValType;

@@ -23,7 +23,9 @@ export class Email extends ValueObject<string> {
       return resValue(new Email(parseResult.data));
     }
     return resFail(
-      new RegisterError.InvalidEmailError(parseResult.error.message),
+      new RegisterError.InvalidEmailError({
+        errMessage: parseResult.error.message,
+      }),
     );
   }
 }

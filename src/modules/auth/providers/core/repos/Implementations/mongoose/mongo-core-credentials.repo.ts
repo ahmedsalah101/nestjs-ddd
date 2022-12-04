@@ -25,11 +25,12 @@ export class MongoCoreCredentialsRepo implements CoreCredentialsRepo {
   getCreditByEmail(email: Email): Promise<CoreCredentials> {
     console.log('HEEERE');
 
-    throw new Error('Method not implemented.');
+    return Promise.resolve(null);
   }
 
   private async rollBackSave(credentials: CoreCredentials) {
-    await this.ProfileRepo.removeProfileById(credentials.profile.profileId);
+    console.log('RolledBack');
+    //await this.ProfileRepo.removeProfileById(credentials.profile.profileId);
     //this.basicCreditModel.remove({})
   }
   async save(credentials: CoreCredentials): Promise<void> {

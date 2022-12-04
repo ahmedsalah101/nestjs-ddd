@@ -51,6 +51,7 @@ export class RegisterUseCase
           errMessage: `Invalid Email ${cred.email.toString()}`,
         }),
       );
+    return resValue(true);
   }
 
   private async crearteCredentials(
@@ -77,6 +78,8 @@ export class RegisterUseCase
       const createCredResult = await this.crearteCredentials(parseResult.value);
       if (createCredResult.isFail()) return resFail(createCredResult.value);
 
+      console.log('PASSED !');
+
       /*guranteed to be CoreCredentials since the above-mentioned if
           checks of createCredResult is an instance of Fail<InvalidCredError,CoreCredentials>
           if if true (isFail()===true) then return resFail()
@@ -87,8 +90,8 @@ export class RegisterUseCase
           an instance of Val<InvalidCredError,CoreCredentials>
           which its value is CoreCredentials
       */
-
       await this.coreCredentialsRepo.save(createCredResult.value);
+      return resValue(createCredResult.value);
     } catch (e) {
       console.log(e);
       resFail(new AppError.InteralError({ err: e }));
@@ -98,14 +101,14 @@ export class RegisterUseCase
 
 type Response = EitherFailOrVal<
   ValidatedDTOError | RegisterError.CredentialsTakenError,
-  void
+  CoreCredentials
 >;
 
 type CreateCredResult = EitherFailOrVal<InvalidCredError, CoreCredentials>;
 type DTOParseResult = EitherFailOrVal<ValidatedDTOError, ValidatedDTO>;
 type CredExistResult = EitherFailOrVal<
   RegisterError.CredentialsTakenError,
-  void
+  boolean
 >;
 
 type ValidatedDTOError =
