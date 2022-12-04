@@ -4,13 +4,13 @@ import { CoreCredentials } from '../../../domain/core.credentials';
 import { Email } from '../../../domain/Email';
 import { CoreCredMap } from '../../../mappers/CredentialsMap';
 import { ProfileMap } from '../../../mappers/ProfileMap';
-import { CoreCredentialsRepo } from '../../core-credentials.abs.repo';
-import { ProfileRepo } from '../../profile.repo';
+import { CoreCredentialsRepo } from '../../abs.coreCred.repo';
+import { ProfileRepo } from '../../abs.profile.repo';
 import {
   MongoCoreCredentials,
   MongoCoreCredentialsDocument,
-} from './models/mongoCoreCredentials';
-import { MongoProfile, MongoProfileDocument } from './models/mongoProfile';
+} from './schemas/mongoCoreCredentials';
+import { MongoProfile, MongoProfileDocument } from './schemas/mongoProfile';
 
 export class MongoCoreCredentialsRepo implements CoreCredentialsRepo {
   constructor(

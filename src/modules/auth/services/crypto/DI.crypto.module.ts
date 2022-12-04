@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { CryptoServices } from './crypto.abs.service';
+import { CryptoServices } from './abs.crypto.service';
 import { ArgonCryptoService } from './Implementations';
 
 @Module({

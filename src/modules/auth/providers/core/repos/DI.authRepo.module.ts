@@ -1,17 +1,17 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { CoreCredentialsRepo } from './core-credentials.abs.repo';
+import { CoreCredentialsRepo } from './abs.coreCred.repo';
 import {
   MongoCoreCredentials,
   MongoCoreCredentialsSchema,
-} from './Implementations/mongoose/models/mongoCoreCredentials';
+} from './Implementations/mongoose/schemas/mongoCoreCredentials';
 import {
   MongoProfile,
   MongoProfileSchema,
-} from './Implementations/mongoose/models/mongoProfile';
-import { MongoCoreCredentialsRepo } from './Implementations/mongoose/mongo-core-credentials.repo';
-import { MongoProfileRepo } from './Implementations/mongoose/mongo-profile.repo';
-import { ProfileRepo } from './profile.repo';
+} from './Implementations/mongoose/schemas/mongoProfile';
+import { MongoCoreCredentialsRepo } from './Implementations/mongoose/mongo.coreCred.repo';
+import { MongoProfileRepo } from './Implementations/mongoose/mongo.profile.repo';
+import { ProfileRepo } from './abs.profile.repo';
 
 @Module({
   imports: [

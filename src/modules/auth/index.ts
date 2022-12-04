@@ -1,1 +1,1 @@
-export * from './auth.DI.module'
+export * from './DI.auth.module'

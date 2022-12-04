@@ -14,6 +14,6 @@ export class RegisterController {
         error: registerResult.value,
         code: HttpCode.BAD_REQUEST,
       });
-    } else return;
+    } else return 'User Created Successfully';
   }
 }

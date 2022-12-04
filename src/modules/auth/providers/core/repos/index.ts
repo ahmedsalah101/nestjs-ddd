@@ -1,2 +1,2 @@
-export * from './core-credentials.abs.repo'
-export * from './profile.repo'
+export * from './abs.coreCred.repo'
+export * from './abs.profile.repo'

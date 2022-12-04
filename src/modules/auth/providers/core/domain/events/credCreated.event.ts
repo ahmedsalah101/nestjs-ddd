@@ -1,13 +1,13 @@
 import { EntityID } from 'src/common/domain/EntityID';
 import { DomainEvent } from 'src/common/domain/events/DomainEvent';
-import { CoreUser } from '../core.user';
+import { CoreCredentials } from '../core.credentials';
 
-export class CoreUserCreatedEvent implements DomainEvent {
+export class CoreCredCreatedEvent implements DomainEvent {
   public readonly dateTimeOccured: Date;
-  constructor(public readonly user: CoreUser) {
+  constructor(public readonly cred: CoreCredentials) {
     this.dateTimeOccured = new Date();
   }
   getAggregateId(): EntityID {
-    return this.user.id;
+    return this.cred.id;
   }
 }

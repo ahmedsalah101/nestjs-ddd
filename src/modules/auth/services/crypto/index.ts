@@ -1,2 +1,2 @@
-export * from './crypto.DI.module'
-export * from './crypto.abs.service'
+export * from './DI.crypto.module'
+export * from './abs.crypto.service'

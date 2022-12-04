@@ -1,2 +1,2 @@
-export * from './argonCrypto.service'
-export * from './bcryptCrypto.service'
+export * from './argon.crypto.service'
+export * from './bcrypt.crypto.service'

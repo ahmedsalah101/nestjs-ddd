@@ -6,8 +6,8 @@ import { CoreCredentials } from '../../../domain/core.credentials';
 import { Email } from '../../../domain/Email';
 import { CoreCredMap } from '../../../mappers/CredentialsMap';
 import { ProfileMap } from '../../../mappers/ProfileMap';
-import { ProfileRepo } from '../../profile.repo';
-import { MongoProfile, MongoProfileDocument } from './models/mongoProfile';
+import { ProfileRepo } from '../../abs.profile.repo';
+import { MongoProfile, MongoProfileDocument } from './schemas/mongoProfile';
 
 export class MongoProfileRepo implements ProfileRepo {
   constructor(
