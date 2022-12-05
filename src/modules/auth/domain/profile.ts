@@ -7,6 +7,8 @@ import { InvalidUserProfileError } from './profile.error';
 interface UserProfileProps {
   firstName: string;
 }
+
+type UserProfileResult = EitherFailOrVal<InvalidUserProfileError, UserProfile>;
 export class UserProfile extends Entity<UserProfileProps> {
   get profileId(): EntityID {
     return this._id;
@@ -16,25 +18,44 @@ export class UserProfile extends Entity<UserProfileProps> {
     return this.props.firstName;
   }
 
-  private constructor(userProfileProps: UserProfileProps, id?: EntityID) {
+  //using EntityID as a type for id gurantees that id will be
+  //valid everytime the object is created via constructor
+  private constructor(userProfileProps: UserProfileProps, id: EntityID) {
     super(userProfileProps, id);
   }
 
-  static create(
-    userProfileProps: UserProfileProps,
-    id?: EntityID,
-  ): EitherFailOrVal<InvalidUserProfileError, UserProfile> {
+  static parseProps(userProfileProps: UserProfileProps) {
     const userProfileSchema = z.object({
       firstName: z
         .string()
         .max(10, { message: 'must be less than 10 chars' })
         .min(5),
     });
-    const parseResult = userProfileSchema.safeParse(userProfileProps);
+    return userProfileSchema.safeParse(userProfileProps);
+  }
+
+  static create(usrProfPrps: UserProfileProps): UserProfileResult {
+    const parseResult = this.parseProps(usrProfPrps);
     if (parseResult.success === false)
       return resFail(
         new InvalidUserProfileError({ errMessage: parseResult.error.message }),
       );
-    return resValue(new UserProfile(userProfileProps, id));
+    return resValue(new UserProfile(usrProfPrps, EntityID.generate()));
+  }
+
+  static parse(usrProfPrps: UserProfileProps, id: string): UserProfileResult {
+    const parseResult = this.parseProps(usrProfPrps);
+    if (parseResult.success === false)
+      return resFail(
+        new InvalidUserProfileError({
+          errMessage: 'Invalid User Profile Error',
+          zodErrMessage: parseResult.error.message,
+        }),
+      );
+    const profileId = EntityID.parse(id);
+    if (profileId.isFail())
+      return resFail(new InvalidUserProfileError({ errMessage: 'Invalid ID' }));
+
+    return resValue(new UserProfile(usrProfPrps, profileId.value));
   }
 }

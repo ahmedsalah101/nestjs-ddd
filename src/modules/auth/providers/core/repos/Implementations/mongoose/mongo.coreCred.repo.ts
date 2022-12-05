@@ -1,5 +1,6 @@
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { EntityID } from 'src/common/domain/EntityID';
 import { CoreCredentials } from '../../../domain/core.credentials';
 import { Email } from '../../../domain/Email';
 import { CoreCredMap } from '../../../mappers/CredentialsMap';
@@ -10,22 +11,24 @@ import {
   MongoCoreCredentials,
   MongoCoreCredentialsDocument,
 } from './schemas/mongoCoreCredentials';
-import { MongoProfile, MongoProfileDocument } from './schemas/mongoProfile';
 
 export class MongoCoreCredentialsRepo implements CoreCredentialsRepo {
   constructor(
     @InjectModel(MongoCoreCredentials.name)
     private readonly basicCreditModel: Model<MongoCoreCredentialsDocument>,
-    private readonly ProfileRepo: ProfileRepo,
+    private readonly profileRepo: ProfileRepo,
   ) {}
   exists(credId: string): Promise<boolean> {
     throw new Error('Method not implemented.');
   }
 
-  getCreditByEmail(email: Email): Promise<CoreCredentials> {
-    console.log('HEEERE');
-
-    return Promise.resolve(null);
+  async getCreditByEmail(email: Email): Promise<CoreCredentials> {
+    const rawCred = await this.basicCreditModel
+      .findOne<MongoCoreCredentials>({
+        email: email.toString(),
+      })
+      .exec();
+    return CoreCredMap.toDomain(rawCred);
   }
 
   private async rollBackSave(credentials: CoreCredentials) {
@@ -35,11 +38,12 @@ export class MongoCoreCredentialsRepo implements CoreCredentialsRepo {
   }
   async save(credentials: CoreCredentials): Promise<void> {
     try {
-      await this.ProfileRepo.save(credentials.profile);
-      const rawCoreCred = CoreCredMap.toPersistence(credentials);
-      const cred = new this.basicCreditModel<MongoCoreCredentials>(rawCoreCred);
+      const rawCoreCred =
+        CoreCredMap.toPersistence<MongoCoreCredentials>(credentials);
+      const cred = new this.basicCreditModel(rawCoreCred);
       await cred.save();
     } catch (error) {
+      console.log(error);
       this.rollBackSave(credentials);
     }
   }

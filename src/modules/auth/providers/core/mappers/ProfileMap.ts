@@ -5,15 +5,24 @@ import { CoreCredentials } from '../domain/core.credentials';
 import { MongoProfile } from '../repos/Implementations/mongoose/schemas/mongoProfile';
 
 //@staticImplements<Mapper<CoreCredentials>>()
+export interface RawProfile {
+  firstName: string;
+  _id: string;
+}
 export class ProfileMap {
-  static toDomain(raw: any): Result<CoreCredentials> {
-    return;
+  static toDomain(raw: RawProfile): UserProfile {
+    const profileParseResult = UserProfile.parse(
+      { firstName: raw.firstName },
+      raw._id,
+    );
+    if (profileParseResult.isFail()) return null;
+    return profileParseResult.value;
   }
 
-  static toMongoPersistence(profile: UserProfile): MongoProfile {
+  static toPersistence<T extends RawProfile>(profile: UserProfile): RawProfile {
     return {
-      profileId: profile.profileId.toString(),
       firstName: profile.firstName,
+      _id: profile.profileId.toString(),
     };
   }
 }

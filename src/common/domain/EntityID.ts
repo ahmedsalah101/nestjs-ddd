@@ -31,7 +31,8 @@ export class EntityID extends ValueObject<Identifier> {
     }
     return resFail(
       new AppError.InvalidEntityIDError({
-        errMessage: parseResult.error.message,
+        errMessage: 'Invalid Entity Error',
+        zodErrMessage: parseResult.error.message,
       }),
     );
   }

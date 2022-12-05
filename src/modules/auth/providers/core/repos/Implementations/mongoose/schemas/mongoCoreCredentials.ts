@@ -1,15 +1,18 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import { RawCoreCred } from '../../../../mappers/CredentialsMap';
+import { MongoProfile, MongoProfileSchema } from './mongoProfile';
 
 export type MongoCoreCredentialsDocument = MongoCoreCredentials & Document;
 @Schema()
-export class MongoCoreCredentials {
+export class MongoCoreCredentials implements RawCoreCred {
   @Prop()
-  credId: string;
+  _id: string;
   @Prop()
   email: string;
-  @Prop()
-  profileId: string;
+  //one to one so it could be embedded
+  @Prop({ type: MongoProfileSchema })
+  profile: MongoProfile;
   @Prop()
   hashedPassword: string;
 }

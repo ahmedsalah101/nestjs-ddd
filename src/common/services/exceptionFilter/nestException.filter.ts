@@ -23,7 +23,10 @@ export class HttpExceptionFilter implements ExceptionFilter {
       const status = exception.code;
       res.status(status).json({
         errType: exception.errorType,
-        message: JSON.parse(exception.message),
+        message: exception.message,
+        detialedMessage: !!exception.detailedMessage
+          ? JSON.parse(exception.detailedMessage)
+          : {},
         time: new Date().toISOString(),
       });
       return;

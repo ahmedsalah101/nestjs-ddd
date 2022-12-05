@@ -12,7 +12,7 @@ import { MongoProfile, MongoProfileDocument } from './schemas/mongoProfile';
 export class MongoProfileRepo implements ProfileRepo {
   constructor(
     @InjectModel(MongoProfile.name)
-    private readonly basicCreditModel: Model<MongoProfileDocument>,
+    private readonly profileModel: Model<MongoProfileDocument>,
   ) {}
   removeProfileById(profileId: EntityID): Promise<boolean> {
     throw new Error('Method not implemented.');
@@ -21,10 +21,21 @@ export class MongoProfileRepo implements ProfileRepo {
     throw new Error('Method not implemented.');
   }
 
+  async getProfileById(profileId: string): Promise<UserProfile> {
+    const rawProfile = await this.profileModel
+      .findOne<MongoProfile>({ _id: profileId })
+      .exec();
+
+    const profile = UserProfile.parse(
+      { firstName: rawProfile.firstName },
+      profileId,
+    );
+    if (profile.isFail()) return;
+    return profile.value;
+  }
   async save(userProfile: UserProfile): Promise<void> {
-    const rawProfile = ProfileMap.toMongoPersistence(userProfile);
-    console.log(rawProfile);
-    const profile = new this.basicCreditModel<MongoProfile>(rawProfile);
+    const rawProfile = ProfileMap.toPersistence<MongoProfile>(userProfile);
+    const profile = new this.profileModel<MongoProfile>(rawProfile);
     await profile.save();
   }
 }

@@ -7,8 +7,8 @@ const isEntity = (v: any): v is Entity<any> => {
 export abstract class Entity<T> {
   protected readonly _id: EntityID;
   protected props: T;
-  constructor(props: T, id?: EntityID) {
-   this._id = id ? id : EntityID.generate();
+  constructor(props: T, id: EntityID) {
+   this._id = id;
     this.props = props;
   }
 

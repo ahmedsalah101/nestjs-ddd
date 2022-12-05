@@ -23,7 +23,8 @@ export class Password extends ValueObject<string> {
     }
     return resFail(
       new RegisterError.InvalidPasswordError({
-        errMessage: parseResult.error.message,
+        errMessage: 'Invalid Password Error',
+        zodErrMessage: parseResult.error.message,
       }),
     );
   }
