@@ -7,6 +7,7 @@ import { ValueObject } from 'src/common/domain/ValueObject';
 //   ValueObjectFactory<string, Email, RegissterError.EmailError>
 // >()
 export class Email extends ValueObject<string> {
+  private __nominal: void;
   private constructor(emailVal: string) {
     super(emailVal);
   }

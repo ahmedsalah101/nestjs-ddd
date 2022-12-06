@@ -1,4 +1,3 @@
-import { CryptoServices } from '@auth/crypto';
 import { Injectable } from '@nestjs/common';
 import {
   AppError,
@@ -12,8 +11,12 @@ import { RegisterDTO } from './register.dto';
 import { CoreCredentials } from '../../domain/core.credentials';
 import { Email } from '../../domain/Email';
 import { UserProfile } from 'src/modules/auth/domain/profile';
-import { InvalidCredError } from '../../domain/core.cred.error';
+import {
+  InvalidCredError,
+  InvalidHashedPasswordError,
+} from '../../domain/core.cred.error';
 import { CoreCredentialsRepo } from '../../repos';
+import { InvalidUserProfileError } from 'src/modules/auth/domain/profile.error';
 
 @Injectable()
 export class RegisterUseCase
@@ -86,12 +89,22 @@ export class RegisterUseCase
 type Response = EitherFailOrVal<
   | RegisterError.InvalidEmailError
   | RegisterError.InvalidPasswordError
+  | InvalidCredError
+  | InvalidUserProfileError
+  | InvalidHashedPasswordError
   | RegisterError.CredentialsTakenError,
   CoreCredentials
 >;
 
-type CreateCredResult = EitherFailOrVal<InvalidCredError, CoreCredentials>;
+type CreateCredResult = EitherFailOrVal<
+  | InvalidCredError
+  | InvalidUserProfileError
+  | InvalidHashedPasswordError
+  | RegisterError.InvalidEmailError
+  | RegisterError.InvalidPasswordError,
+  CoreCredentials
+>;
 type CredExistResult = EitherFailOrVal<
-  RegisterError.CredentialsTakenError,
+  RegisterError.InvalidEmailError | RegisterError.CredentialsTakenError,
   boolean
 >;

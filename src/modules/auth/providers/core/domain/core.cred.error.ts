@@ -1,6 +1,7 @@
 import { DomainError, ErrorPayload } from '@common/core';
 
 export class InvalidCredError implements DomainError {
+  private __nominal:void;
   errorPayload: ErrorPayload;
   constructor(errpayload: ErrorPayload) {
     this.errorPayload = {
@@ -10,6 +11,7 @@ export class InvalidCredError implements DomainError {
 }
 
 export class InvalidHashedPasswordError implements DomainError {
+  private __nominal:void;
   errorPayload: ErrorPayload;
   constructor(errpayload: ErrorPayload) {
     this.errorPayload = {
@@ -19,6 +21,7 @@ export class InvalidHashedPasswordError implements DomainError {
 }
 
 export class NotMatchedError implements DomainError {
+  private __nominal:void;
   errorPayload: ErrorPayload;
   constructor(errpayload: ErrorPayload) {
     this.errorPayload = {

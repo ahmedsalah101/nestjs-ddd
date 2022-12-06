@@ -1,10 +1,19 @@
-import { EitherFailOrVal, resFail, Result, resValue } from '@common/core';
+import {
+  AppError,
+  EitherFailOrVal,
+  resFail,
+  Result,
+  resValue,
+} from '@common/core';
 import { EntityID } from 'src/common/domain/EntityID';
 import { Credentials } from 'src/modules/auth/domain';
 import { UserProfile } from 'src/modules/auth/domain/profile';
 import { Email } from 'src/modules/auth/providers/core/domain/Email';
 import { RegisterError } from '../useCases/Register/register.error';
-import { InvalidCredError } from './core.cred.error';
+import {
+  InvalidCredError,
+  InvalidHashedPasswordError,
+} from './core.cred.error';
 import { HashedPassword } from './hashedPassword';
 
 interface CoreCredentialsProps {
@@ -25,7 +34,25 @@ interface ParseDTOProps {
   hashedPassword: string;
 }
 
+type CreateCredResult = EitherFailOrVal<
+  | InvalidCredError
+  | InvalidHashedPasswordError
+  | RegisterError.InvalidEmailError
+  | RegisterError.InvalidPasswordError,
+  CoreCredentials
+>;
+
+type ParseCredResult = EitherFailOrVal<
+  | InvalidCredError
+  | InvalidHashedPasswordError
+  | RegisterError.InvalidEmailError
+  | RegisterError.InvalidPasswordError
+  | AppError.InvalidEntityIDError,
+  CoreCredentials
+>;
+
 export class CoreCredentials extends Credentials<CoreCredentialsProps> {
+  private __nominal: void;
   private constructor(coreCredProps: CoreCredentialsProps, id: EntityID) {
     super(coreCredProps, id);
   }
@@ -38,14 +65,11 @@ export class CoreCredentials extends Credentials<CoreCredentialsProps> {
   public get profile(): UserProfile {
     return this.props.profile;
   }
-
   public get hashedPassowrd(): HashedPassword {
     return this.props.hashedPassword;
   }
 
-  static async create(
-    coreCredDTO: CreateDTOProps,
-  ): Promise<EitherFailOrVal<InvalidCredError, CoreCredentials>> {
+  static async create(coreCredDTO: CreateDTOProps): Promise<CreateCredResult> {
     const emailParseResult = Email.parse(coreCredDTO.email);
     if (emailParseResult.isFail()) return resFail(emailParseResult.value);
 
@@ -67,10 +91,7 @@ export class CoreCredentials extends Credentials<CoreCredentialsProps> {
     );
   }
 
-  static parse(
-    coreCredDTO: ParseDTOProps,
-    id: string,
-  ): EitherFailOrVal<InvalidCredError, CoreCredentials> {
+  static parse(coreCredDTO: ParseDTOProps, id: string): ParseCredResult {
     const emailParseResult = Email.parse(coreCredDTO.email);
     if (emailParseResult.isFail()) return resFail(emailParseResult.value);
 
@@ -95,3 +116,14 @@ export class CoreCredentials extends Credentials<CoreCredentialsProps> {
     );
   }
 }
+
+class a{
+  private f:void;
+  test:string;
+}
+
+class e{
+  test:string
+}
+
+const r : e = new a();

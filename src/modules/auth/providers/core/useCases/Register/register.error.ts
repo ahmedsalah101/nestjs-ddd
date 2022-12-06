@@ -2,6 +2,7 @@ import { DomainError, ErrorPayload } from '@common/core';
 
 export namespace RegisterError {
   export class CredentialsTakenError implements DomainError {
+    private __nominal:void;
     errorPayload: ErrorPayload;
     constructor(errpayload: ErrorPayload) {
       this.errorPayload = {
@@ -11,6 +12,7 @@ export namespace RegisterError {
   }
 
   export class InvalidEmailError implements DomainError {
+    private __nominal:void;
     errorPayload: ErrorPayload;
     constructor(errpayload: ErrorPayload) {
       this.errorPayload = {
@@ -20,6 +22,7 @@ export namespace RegisterError {
   }
 
   export class InvalidPasswordError implements DomainError {
+    private __nominal:void;
     errorPayload: ErrorPayload;
     constructor(errpayload: ErrorPayload) {
       this.errorPayload = {

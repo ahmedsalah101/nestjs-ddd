@@ -10,6 +10,7 @@ interface UserProfileProps {
 
 type UserProfileResult = EitherFailOrVal<InvalidUserProfileError, UserProfile>;
 export class UserProfile extends Entity<UserProfileProps> {
+  private __nominal:void;
   get profileId(): EntityID {
     return this._id;
   }

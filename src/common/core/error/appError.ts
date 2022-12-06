@@ -2,6 +2,7 @@ import { DomainError, ErrorPayload } from './domainError';
 
 export namespace AppError {
   export class InvalidEntityIDError implements DomainError {
+    private __nominal: void;
     errorPayload: ErrorPayload;
     constructor(errpayload: ErrorPayload) {
       this.errorPayload = { errMessage: errpayload.errMessage || 'Invalid Id' };

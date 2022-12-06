@@ -13,6 +13,7 @@ type HashedPasswordResult = EitherFailOrVal<
 >;
 //TODO diffrentiate Classes from each other cuz all of them are equal types
 export class HashedPassword extends ValueObject<string> {
+  private __nominal: void;
   private static cryptoService: CryptoServices;
   private constructor(id: string) {
     super(id);

@@ -1,11 +1,14 @@
 import { EitherFailOrVal, resFail, resValue } from '@common/core';
+import { Nominal } from 'src/common/core/utils';
 import { ValueObject } from 'src/common/domain/ValueObject';
 import { z } from 'zod';
 import { RegisterError } from '../useCases/Register/register.error';
 
 //@staticImplements<ValueObjectFactory<string, Password>>()
+
 export class Password extends ValueObject<string> {
-  private constructor(id: string) {
+  private __nominal: void;
+  constructor(id: string) {
     super(id);
   }
 
