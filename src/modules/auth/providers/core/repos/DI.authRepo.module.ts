@@ -4,20 +4,24 @@ import { CoreCredentialsRepo } from './abs.coreCred.repo';
 import {
   MongoCoreCredentials,
   MongoCoreCredentialsSchema,
-} from './Implementations/mongoose/schemas/mongoCoreCredentials';
+} from './Implementations/mongoose/schemas/mongo.coreCred';
 import {
   MongoProfile,
   MongoProfileSchema,
-} from './Implementations/mongoose/schemas/mongoProfile';
+} from './Implementations/mongoose/schemas/mongo.profile';
 import { MongoCoreCredentialsRepo } from './Implementations/mongoose/mongo.coreCred.repo';
 import { MongoProfileRepo } from './Implementations/mongoose/mongo.profile.repo';
 import { ProfileRepo } from './abs.profile.repo';
+import {
+  CORE_CRED_MODEL_NAME,
+  PROFILE_MODEL_NAME,
+} from './Implementations/mongoose/constants';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
-      { name: MongoCoreCredentials.name, schema: MongoCoreCredentialsSchema },
-      { name: MongoProfile.name, schema: MongoProfileSchema },
+      { name: CORE_CRED_MODEL_NAME, schema: MongoCoreCredentialsSchema },
+      { name: PROFILE_MODEL_NAME, schema: MongoProfileSchema },
     ]),
   ],
   providers: [

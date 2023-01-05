@@ -27,12 +27,11 @@ export class RegisterUseCase
   private async credExist(email: string): Promise<CredExistResult> {
     const emailResult = Email.parse(email);
     if (emailResult.isFail()) return resFail(emailResult.value);
-
-    const cred: CoreCredentials =
-      await this.coreCredentialsRepo.getCreditByEmail(emailResult.value);
-    console.log(cred.profile.profileId.toString());
-
+    const cred = await this.coreCredentialsRepo.getCreditByEmail(
+      emailResult.value,
+    );
     const credTaken = !!cred;
+    /*check for null is forced before using cred object*/
     if (credTaken)
       return resFail(
         new RegisterError.CredentialsTakenError({

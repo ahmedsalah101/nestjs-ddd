@@ -1,3 +1,4 @@
+import { Optional } from '@common/core';
 import { EntityID } from 'src/common/domain/EntityID';
 import { UserProfile } from 'src/modules/auth/domain/profile';
 import { CoreCredentials } from '../domain/core.credentials';
@@ -14,7 +15,7 @@ export interface RawCoreCred {
 
 //@staticImplements<Mapper<CoreCredentials>>()
 export class CoreCredMap {
-  static toDomain(raw: RawCoreCred): CoreCredentials {
+  static toDomain(raw: RawCoreCred): Optional<CoreCredentials> {
     const cred = CoreCredentials.parse(
       {
         email: raw.email,

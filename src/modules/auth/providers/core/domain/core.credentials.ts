@@ -1,10 +1,4 @@
-import {
-  AppError,
-  EitherFailOrVal,
-  resFail,
-  Result,
-  resValue,
-} from '@common/core';
+import { AppError, EitherFailOrVal, resFail, resValue } from '@common/core';
 import { EntityID } from 'src/common/domain/EntityID';
 import { Credentials } from 'src/modules/auth/domain';
 import { UserProfile } from 'src/modules/auth/domain/profile';
@@ -34,22 +28,22 @@ interface ParseDTOProps {
   hashedPassword: string;
 }
 
-type CreateCredResult = EitherFailOrVal<
+type CreateCredErrors =
   | InvalidCredError
   | InvalidHashedPasswordError
   | RegisterError.InvalidEmailError
-  | RegisterError.InvalidPasswordError,
-  CoreCredentials
->;
+  | RegisterError.InvalidPasswordError;
 
-type ParseCredResult = EitherFailOrVal<
+type CreateCredResult = EitherFailOrVal<CreateCredErrors, CoreCredentials>;
+
+type ParseCredErrors =
   | InvalidCredError
   | InvalidHashedPasswordError
   | RegisterError.InvalidEmailError
   | RegisterError.InvalidPasswordError
-  | AppError.InvalidEntityIDError,
-  CoreCredentials
->;
+  | AppError.InvalidEntityIDError;
+
+type ParseCredResult = EitherFailOrVal<ParseCredErrors, CoreCredentials>;
 
 export class CoreCredentials extends Credentials<CoreCredentialsProps> {
   private __nominal: void;
@@ -116,14 +110,3 @@ export class CoreCredentials extends Credentials<CoreCredentialsProps> {
     );
   }
 }
-
-class a{
-  private f:void;
-  test:string;
-}
-
-class e{
-  test:string
-}
-
-const r : e = new a();
